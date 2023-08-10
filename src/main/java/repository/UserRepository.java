@@ -31,8 +31,7 @@ public class UserRepository {
     public User findByUsername(String username) {
 
         try {
-            User[] usersArray = om.readValue(file, User[].class);
-            List<User> users = Arrays.asList(usersArray);
+            List<User> users = Arrays.asList(om.readValue(file, User[].class));
             for(User user : users) {
                 if(user.getLogin().equals(username)){
                     return user;
@@ -47,8 +46,7 @@ public class UserRepository {
 
     public void save(User user) {
         try {
-            User[] usersArray = om.readValue(file, User[].class);
-            List<User> users = new ArrayList<> (Arrays.asList(usersArray));
+            List<User> users = new ArrayList<> (Arrays.asList(om.readValue(file, User[].class)));
             users.add(user);
             om.writeValue(file, users);
         } catch (IOException e) {
