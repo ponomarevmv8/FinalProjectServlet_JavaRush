@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Quiz</title>
+    <title>Гарри Поттер</title>
     <style>
         body {
             display: flex;
