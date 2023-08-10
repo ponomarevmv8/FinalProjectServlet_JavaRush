@@ -1,5 +1,7 @@
 package repository;
 
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.User;
 import java.io.File;
@@ -7,10 +9,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserRepository {
 
     private static UserRepository userRepository;
+    private ObjectMapper om = new ObjectMapper();
+    private File file = new File(this.getClass().getClassLoader().getResource("users.json").getFile());
 
     private UserRepository() {
 
@@ -24,8 +29,6 @@ public class UserRepository {
     }
 
     public User findByUsername(String username) {
-        ObjectMapper om = new ObjectMapper();
-        File file = new File(this.getClass().getClassLoader().getResource("users.json").getFile());
 
         try {
             User[] usersArray = om.readValue(file, User[].class);
@@ -43,9 +46,6 @@ public class UserRepository {
     }
 
     public void save(User user) {
-        ObjectMapper om = new ObjectMapper();
-        File file = new File(this.getClass().getClassLoader().getResource("users.json").getFile());
-
         try {
             User[] usersArray = om.readValue(file, User[].class);
             List<User> users = new ArrayList<> (Arrays.asList(usersArray));
@@ -53,6 +53,19 @@ public class UserRepository {
             om.writeValue(file, users);
         } catch (IOException e) {
             System.out.println("Ошибка записи в файл");
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void update(User user) {
+        try {
+            List<User> users = Arrays.asList(om.readValue(file, User[].class));
+            users = users.stream()
+                            .filter(usr -> !usr.getLogin().equals(user.getLogin()))
+                            .collect(Collectors.toList());
+            users.add(user);
+            om.writeValue(file, users);
+        }  catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

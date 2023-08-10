@@ -17,7 +17,7 @@ public class FilterServlet implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession(false);
-        if(session == null || session.getAttribute("login") == null) {
+        if(session == null || session.getAttribute("user") == null) {
             RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("auth");
             dispatcher.forward(servletRequest, servletResponse);
         } else {

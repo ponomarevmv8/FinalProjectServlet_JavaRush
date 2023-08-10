@@ -1,6 +1,7 @@
 package servlet;
 
 import entity.Question;
+import entity.User;
 import service.LogicService;
 
 import javax.servlet.ServletException;
@@ -11,29 +12,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/start")
-public class LogicServlet extends HttpServlet {
-
-
-
+@WebServlet("/end")
+public class EndServlet extends HttpServlet {
+    private LogicService logicService = LogicService.getLogicService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-
-        if(session.getAttribute("question") == null) {
-            Question question = LogicService.getLogicService().getQuestion(1);
-            session.setAttribute("question", question);
-        }
-        request.getRequestDispatcher("/WEB-INF/start.jsp").forward(request, response);
+        User user = (User) session.getAttribute("user");
+        String answer = request.getParameter("answer");
+        Question question = (Question) session.getAttribute("question");
+        logicService.end(user, question);
+        session.setAttribute("user", user);
+        session.setAttribute("question", logicService.getQuestion(Integer.parseInt(answer)));
+        request.getRequestDispatcher("/WEB-INF/end.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String answer = request.getParameter("answer");
-        System.out.println("Получен ответ: " + answer);
-        Question question = LogicService.getLogicService().getQuestion(Integer.parseInt(answer));
-        request.getSession(false).setAttribute("question", question);
+        request.getSession(false).setAttribute("question", null);
+        response.sendRedirect("/start");
     }
 }

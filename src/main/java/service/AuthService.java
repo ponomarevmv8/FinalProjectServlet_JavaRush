@@ -3,6 +3,8 @@ package service;
 import entity.User;
 import repository.UserRepository;
 
+import java.util.HashMap;
+
 public class AuthService {
 
     private static AuthService authService;
@@ -22,10 +24,9 @@ public class AuthService {
     public User login(String username) {
         User user = userRepository.findByUsername(username);
         if(user == null) {
-            System.out.println("Срабатывание метода");
             User userCreated = new User();
             userCreated.setLogin(username);
-            userCreated.setNumber(0);
+            userCreated.setEndings(new HashMap<>());
             userRepository.save(userCreated);
             return userCreated;
         }

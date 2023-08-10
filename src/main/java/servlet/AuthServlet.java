@@ -27,8 +27,7 @@ public class AuthServlet extends HttpServlet {
         AuthService authService = AuthService.getAuthService();
         User user = authService.login(username);
         HttpSession session = request.getSession();
-        session.setAttribute("login", user.getLogin());
-        session.setAttribute("number", user.getNumber());
-        response.sendRedirect("/");
+        session.setAttribute("user", user);
+        response.sendRedirect("/start");
    }
 }

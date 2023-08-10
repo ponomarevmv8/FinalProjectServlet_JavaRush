@@ -1,22 +1,10 @@
 [
   {
-    "login": "user1",
-    "number": "2"
+    "login": "Max",
+    "endings": {"64":  2}
   },
   {
-    "login": "user2",
-    "number": "5"
-  },
-  {
-    "login": "user3",
-    "number": "12"
-  },
-  {
-    "login": "user4",
-    "number": "14"
-  },
-  {
-    "login": "user5",
-    "number": "7"
+    "login": "Bob",
+    "endings": {"59":  1, "58":  1}
   }
 ]
