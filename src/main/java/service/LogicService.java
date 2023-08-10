@@ -12,12 +12,12 @@ public class LogicService {
     private static LogicService logicService;
     private QuestionRepository questionRepository;
 
-    private LogicService(QuestionRepository questionRepository){
+    private LogicService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
 
-    public static LogicService getLogicService(){
-        if(logicService == null){
+    public static LogicService getLogicService() {
+        if (logicService == null) {
             logicService = new LogicService(QuestionRepository.getQuestionRepository());
         }
         return logicService;
@@ -32,13 +32,13 @@ public class LogicService {
         Map<Integer, Integer> endingsUser = user.getEndings();
         int idQuestion = question.getId();
         boolean isAdd = true;
-        for(Integer id : endingsUser.keySet()) {
-            if(id == idQuestion){
+        for (Integer id : endingsUser.keySet()) {
+            if (id == idQuestion) {
                 endingsUser.put(id, endingsUser.get(id) + 1);
                 isAdd = false;
             }
         }
-        if(isAdd) {
+        if (isAdd) {
             endingsUser.put(idQuestion, 1);
         }
         user.setEndings(endingsUser);
