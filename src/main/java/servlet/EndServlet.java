@@ -3,6 +3,7 @@ package servlet;
 import entity.Question;
 import entity.User;
 import service.LogicService;
+import service.LogicServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,7 @@ import java.io.IOException;
 
 @WebServlet("/end")
 public class EndServlet extends HttpServlet {
-    private LogicService logicService = LogicService.getLogicService();
+    private LogicService logicService = LogicServiceImpl.getLogicService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

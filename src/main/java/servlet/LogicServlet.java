@@ -1,7 +1,7 @@
 package servlet;
 
 import entity.Question;
-import service.LogicService;
+import service.LogicServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +20,7 @@ public class LogicServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("question") == null) {
-            Question question = LogicService.getLogicService().getQuestion(1);
+            Question question = LogicServiceImpl.getLogicService().getQuestion(1);
             session.setAttribute("question", question);
         }
         request.getRequestDispatcher("/WEB-INF/start.jsp").forward(request, response);
@@ -31,7 +31,7 @@ public class LogicServlet extends HttpServlet {
             throws ServletException, IOException {
         String answer = request.getParameter("answer");
         System.out.println("Получен ответ: " + answer);
-        Question question = LogicService.getLogicService().getQuestion(Integer.parseInt(answer));
+        Question question = LogicServiceImpl.getLogicService().getQuestion(Integer.parseInt(answer));
         request.getSession(false).setAttribute("question", question);
     }
 }

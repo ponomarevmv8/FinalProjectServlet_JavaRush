@@ -2,6 +2,7 @@ package servlet;
 
 import entity.User;
 import service.AuthService;
+import service.AuthServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +25,7 @@ public class AuthServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
-        AuthService authService = AuthService.getAuthService();
+        AuthService authService = AuthServiceImpl.getAuthService();
         User user = authService.login(username);
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
