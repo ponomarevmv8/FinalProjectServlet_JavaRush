@@ -11,14 +11,14 @@ import java.util.List;
 public class QuestionRepositoryImpl implements QuestionRepository {
 
 
-    private static QuestionRepositoryImpl questionRepository;
+    private static QuestionRepository questionRepository;
     private ObjectMapper om = new ObjectMapper();
     private File file = new File(this.getClass().getClassLoader().getResource("question.json").getFile());
 
     private QuestionRepositoryImpl() {
     }
 
-    public static QuestionRepositoryImpl getQuestionRepository() {
+    public static QuestionRepository getQuestionRepository() {
         if (questionRepository == null) {
             questionRepository = new QuestionRepositoryImpl();
         }

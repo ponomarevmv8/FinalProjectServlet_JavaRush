@@ -11,7 +11,7 @@ public class AuthServiceImpl implements AuthService {
     private static AuthService authService;
     private UserRepository userRepository;
 
-    private AuthServiceImpl(UserRepositoryImpl userRepository) {
+    private AuthServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    private static UserRepositoryImpl userRepository;
+    private static UserRepository userRepository;
     private ObjectMapper om = new ObjectMapper();
     private File file = new File(this.getClass().getClassLoader().getResource("users.json").getFile());
 
@@ -19,7 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
-    public static UserRepositoryImpl getUserRepository() {
+    public static UserRepository getUserRepository() {
         if(userRepository == null) {
             userRepository = new UserRepositoryImpl();
         }
