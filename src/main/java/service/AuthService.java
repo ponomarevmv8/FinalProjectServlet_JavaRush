@@ -1,4 +1,7 @@
 package service;
 
-public class AuthService {
+import entity.User;
+
+public interface AuthService {
+    User login(String username);
 }
